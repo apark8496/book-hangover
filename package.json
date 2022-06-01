@@ -11,11 +11,18 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "main": "server/server.js",
+  "proxy": "http://localhost:3001",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node server/server.js",
+      "client": "cd client && npm start",
+      "dev": "concurrently -n 'client,server' -c 'blue,yellow' \"npm run client\" \"nodemon server/server.js\"",
+      "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+      "install": "cd server && npm i && cd ../client && npm i",
+      "seed": "cd server && npm run seed",
+      "build": "cd client && npm run build",
+      "heroku-postbuild": "cd client && npm i && cd ../server && npm run seed && cd ../client && npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^7.1.0",
+    "nodemon": "^2.0.15"
   }
 }
