@@ -1,21 +1,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Offside&display=swap');
 
+:root {
+  --sage: #a3ac9b;
+  --dark-sage: #727E66;
+  --manatee: #8e9aafff;
+  --languid-lavender: #cbc0d3ff;
+  --pale-pink: #efd3d7ff;
+  --pale-purple-pantone: #feeafaff;
+  --lavender-web: #dee2ffff;
+}
+
 body {
   background-image: url(https://cdn.pixabay.com/photo/2019/06/12/23/56/time-4270427_960_720.jpg);
   background-size: cover;
 }
   
-  .small {
-    font-weight: 300;
-    font-style: italic;
-  }
+/* navbar */
+.logo {
+  color: var(--sage) !important;
+  font-size: 2.5rem;
+  text-decoration: none;
+  text-align: center;
+}
+.logo:hover {
+  cursor: pointer;
+  color: var(--languid-lavender) !important;
+}
 
+.navbar {
+  transition: all 0.3s ease-out 0s !important;
+  padding: 0.3rem 2rem !important;
+  font-size: 1.2rem !important;
+  font-weight: 500;
+}
+
+.navbar-toggler {
+  padding: 0.25rem 1.5rem !important;
+  position: relative !important;
+}
+
+.nav-link {
+  color: var(--languid-lavender) !important;
+  padding: 5px 0 2px;
+  margin: auto;
+  text-decoration: none;
+  background-color: var(--sage);
+  border-radius: 15px;
+}
+
+.nav-link:hover {
+  cursor: pointer;
+  color: var(--pale-pink) !important;
+}
+
+/* book search page */
   .book-search {
-    background-color: #abbaab;
+    background-color:var(--sage);
     opacity: 75%;
     border-radius: 15px;
     }
-
 
     /* Button */
     .submit-btn {
@@ -70,4 +113,10 @@ body {
      
      .submit-btn:active {
       background: linear-gradient(32deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
+     }
+
+     /* Book Card Styles */
+     .book-card {
+      border-radius: 10px;
+      border-color: var(--dark-sage);
      }
