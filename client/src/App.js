@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SearchBooks from "./pages/SearchBooks";
 import SavedBooks from "./pages/SavedBooks";
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
 // import ApolloProvider destructured  from apollo
 import { ApolloProvider } from "@apollo/react-hooks";
 // import the apollo client from apollo boost
@@ -27,7 +27,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <>
-          <Navbar />
+          {/* <Navbar /> */}
           <Switch>
             <Route exact path="/" component={SearchBooks} />
             <Route exact path="/saved" component={SavedBooks} />
