@@ -97,7 +97,7 @@ const SearchBooks = () => {
 
   return (
     <>
-      <Jumbotron fluid className="text-light bg-dark">
+      <Jumbotron fluid className="book-search">
         <Container>
           <h1>Search for Books!</h1>
           <Form onSubmit={handleFormSubmit}>
@@ -109,7 +109,8 @@ const SearchBooks = () => {
                   onChange={e => setSearchInput(e.target.value)}
                   type="text"
                   size="lg"
-                  placeholder="Search for a book"
+                  placeholder="Find your Next Journey
+                  "
                 />
               </Col>
               <Col xs={12} md={4}>
