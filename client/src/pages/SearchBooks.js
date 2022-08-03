@@ -127,16 +127,17 @@ const SearchBooks = () => {
       <Container>
         <h2>
           {searchedBooks.length
-            ? `Viewing ${searchedBooks.length} results:`
+            ? `Viewing Top ${searchedBooks.length} results:`
             : "Search for a book to begin"}
         </h2>
         <CardColumns>
           {searchedBooks.map(book => {
             return (
-              <div className="wrapper">
+              <div className="book-div">
               <Card className="book-card" key={book.bookId}>
                 {book.image ? (
                   <Card.Img
+                  className="card-img"
                     src={book.image}
                     alt={`The cover for ${book.title}`}
                     variant="top"
