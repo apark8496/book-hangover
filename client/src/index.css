@@ -11,7 +11,10 @@
 }
 
 body {
-  background-image: url(https://cdn.pixabay.com/photo/2019/06/12/23/56/time-4270427_960_720.jpg);
+  background-image: url(https://www.passporttoeden.com/wp-content/uploads/2022/09/DarkAcademiaLibraries_Featured-1-of-1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #cccccc;
 }
 
 /* navbar */
@@ -24,7 +27,7 @@ body {
 
 .logo:hover {
   cursor: pointer;
-  color: var(--languid-lavender) !important;
+  color: transparent;
 }
 
 .navbar {
@@ -35,7 +38,8 @@ body {
 }
 
 .nav-link {
-  color: var(--dark-sage);
+  color: white !important;
+  background-color: rgba(114, 126, 102, 0.5);
   padding: 5px 0 2px;
   margin: auto;
   text-decoration: none;
@@ -45,7 +49,6 @@ body {
 .nav-link:hover {
   cursor: pointer;
   color: var(--pale-pink) !important;
-  background-color: var(--manatee);
   border-radius: 10px;
 }
 

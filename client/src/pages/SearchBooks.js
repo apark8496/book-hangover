@@ -110,8 +110,7 @@ const SearchBooks = () => {
                   onChange={e => setSearchInput(e.target.value)}
                   type="text"
                   size="lg"
-                  placeholder="Search by Book Title...
-                  "
+                  placeholder="Search by Book title or author"
                 />
               </Col>
               <Col xs={12} md={4}>
@@ -158,7 +157,7 @@ const SearchBooks = () => {
                       {savedBookIds?.some(
                         savedBookId => savedBookId === book.bookId
                       )
-                        ? "This book has already been saved!"
+                        ? "Saved"
                         : "Save this Book!"}
                     </Button>
                   )}
