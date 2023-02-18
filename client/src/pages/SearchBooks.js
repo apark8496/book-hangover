@@ -97,9 +97,9 @@ const SearchBooks = () => {
 
   return (
     <>
+    <Container>
       <Jumbotron fluid className="book-search">
-        <Container>
-          <h1> Looking for a new book to cure your book hangover?</h1>
+          <h1> Looking to cure your book hangover?</h1>
           <h4> A New Adventure Awaits:</h4>
           <Form onSubmit={handleFormSubmit}>
             <Form.Row>
@@ -109,26 +109,31 @@ const SearchBooks = () => {
                   value={searchInput}
                   onChange={e => setSearchInput(e.target.value)}
                   type="text"
-                  size="lg"
-                  placeholder="Search by Book title or author"
+                  size="md"
+                  placeholder="Search"
                 />
               </Col>
               <Col xs={12} md={4}>
-                <Button className="submit-btn" type="submit">
+                {/* <Button className="submit-btn" type="submit">
                    Search
-                </Button>
+                </Button> */}
               </Col>
             </Form.Row>
           </Form>
-        </Container>
+          <br/>
+          <h3>
+            Need Something a little stronger? Try:</h3>
+            {/* insert random coctail api */}
       </Jumbotron>
-
+      </Container>
+<br/>
       <Container>
         <h2>
           {searchedBooks.length
             ? `Viewing Top ${searchedBooks.length} results:`
             : "Search for a book to begin"}
         </h2>
+        <br/>
         <CardColumns>
           {searchedBooks.map(book => {
             return (
@@ -151,14 +156,14 @@ const SearchBooks = () => {
                       disabled={savedBookIds?.some(
                         savedBookId => savedBookId === book.bookId
                       )}
-                      className="btn-block btn-info"
+                      className="btn-block save-btn"
                       onClick={() => handleSaveBook(book.bookId)}
                     >
                       {savedBookIds?.some(
                         savedBookId => savedBookId === book.bookId
                       )
                         ? "Saved"
-                        : "Save this Book!"}
+                        : "Save this Book"}
                     </Button>
                   )}
                 </Card.Body>

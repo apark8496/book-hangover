@@ -54,9 +54,10 @@ body {
 
 /* book search page */
 .book-search {
-  background-color: var(--sage);
-  opacity: 75%;
+  background-color: rgba(163, 172, 155, 0.5);
   border-radius: 15px;
+  margin: auto;
+  text-align: center;
 }
 
 input[type="text"] {
@@ -127,8 +128,14 @@ input[type="text"]:focus {
 .book-card {
   border-radius: 10px;
   border-color: var(--dark-sage);
+  background-color: rgba(255, 254, 254, 0.5);
 }
 
 .card-img {
   border-radius: 10px;
+}
+
+.save-btn {
+  background-color: var(--sage) !important;
+  border-color: var(--dark-sage) !important;
 }
