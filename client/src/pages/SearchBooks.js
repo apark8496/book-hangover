@@ -9,17 +9,19 @@ import {
   CardColumns,
 } from "react-bootstrap";
 
+import { SAVE_BOOK } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { searchGoogleBooks } from "../utils/API";
 import { saveBookIds, getSavedBookIds } from "../utils/localStorage";
-import { SAVE_BOOK } from "../utils/mutations";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 
 const SearchBooks = () => {
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
+
+  const [saveBook] = useMutation(SAVE_BOOK);
 
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
@@ -30,11 +32,8 @@ const SearchBooks = () => {
     return () => saveBookIds(savedBookIds);
   });
 
-  // added use mutation for the error and saveBook
-  const [saveBook] = useMutation(SAVE_BOOK);
-
   // create method to search for books and set state on form submit
-  const handleFormSubmit = async event => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     if (!searchInput) {
@@ -50,7 +49,7 @@ const SearchBooks = () => {
 
       const { items } = await response.json();
 
-      const bookData = items.map(book => ({
+      const bookData = items.map((book) => ({
         bookId: book.id,
         authors: book.volumeInfo.authors || ["No author to display"],
         title: book.volumeInfo.title,
@@ -66,9 +65,9 @@ const SearchBooks = () => {
   };
 
   // create function to handle saving a book to our database
-  const handleSaveBook = async bookId => {
+  const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id
-    const bookToSave = searchedBooks.find(book => book.bookId === bookId);
+    const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -78,11 +77,7 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook({
-        variables: {
-          input: bookToSave,
-        },
-      });
+      const response = await saveBook({ variables: bookToSave, token });
 
       if (!response) {
         throw new Error("something went wrong!");
@@ -97,8 +92,8 @@ const SearchBooks = () => {
 
   return (
     <>
-    <Container>
-      <Jumbotron fluid className="book-search">
+      <Container>
+        <Jumbotron fluid className="book-search">
           <h1> Looking to cure your book hangover?</h1>
           <h4> A New Adventure Awaits:</h4>
           <Form onSubmit={handleFormSubmit}>
@@ -120,28 +115,25 @@ const SearchBooks = () => {
               </Col>
             </Form.Row>
           </Form>
-          <br/>
+          <br />
           <h3>
             Need Something a little stronger? Try:</h3>
-            {/* insert random coctail api */}
-      </Jumbotron>
+          {/* insert random coctail api */}
+        </Jumbotron>
       </Container>
-<br/>
+      <br />
       <Container>
         <h2>
           {searchedBooks.length
-            ? `Viewing Top ${searchedBooks.length} results:`
+            ? `Viewing ${searchedBooks.length} results:`
             : "Search for a book to begin"}
         </h2>
-        <br/>
         <CardColumns>
-          {searchedBooks.map(book => {
+          {searchedBooks.map((book) => {
             return (
-              <div className="book-div">
-              <Card className="book-card" key={book.bookId}>
+              <Card key={book.bookId} border="dark">
                 {book.image ? (
                   <Card.Img
-                  className="card-img"
                     src={book.image}
                     alt={`The cover for ${book.title}`}
                     variant="top"
@@ -154,13 +146,13 @@ const SearchBooks = () => {
                   {Auth.loggedIn() && (
                     <Button
                       disabled={savedBookIds?.some(
-                        savedBookId => savedBookId === book.bookId
+                        (savedBookId) => savedBookId === book.bookId
                       )}
                       className="btn-block save-btn"
                       onClick={() => handleSaveBook(book.bookId)}
                     >
                       {savedBookIds?.some(
-                        savedBookId => savedBookId === book.bookId
+                        (savedBookId) => savedBookId === book.bookId
                       )
                         ? "Saved"
                         : "Save this Book"}
@@ -168,7 +160,6 @@ const SearchBooks = () => {
                   )}
                 </Card.Body>
               </Card>
-              </div>
             );
           })}
         </CardColumns>
@@ -176,5 +167,4 @@ const SearchBooks = () => {
     </>
   );
 };
-
 export default SearchBooks;
