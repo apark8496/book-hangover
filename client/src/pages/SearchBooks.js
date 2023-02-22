@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from "react";
-import {
-  Jumbotron,
-  Container,
-  Col,
-  Form,
-  Button,
-  Card,
-  CardColumns,
-} from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
-import { SAVE_BOOK } from "../utils/mutations";
-import Auth from "../utils/auth";
-import { searchGoogleBooks } from "../utils/API";
-import { saveBookIds, getSavedBookIds } from "../utils/localStorage";
-import { useMutation } from "@apollo/client";
+import Auth from '../utils/auth';
+import { useMutation } from '@apollo/react-hooks';
+import { SAVE_BOOK } from '../utils/mutations';
+import { QUERY_ME } from '../utils/queries';
+import { searchGoogleBooks } from '../utils/API';
+import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
+
 
 const SearchBooks = () => {
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
   // create state for holding our search field data
-  const [searchInput, setSearchInput] = useState("");
-
-  const [saveBook] = useMutation(SAVE_BOOK);
+  const [searchInput, setSearchInput] = useState('');
 
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
+
+  const [saveBook, {error}] = useMutation(SAVE_BOOK, {
+    update(cache, { data: { saveBook }}) {
+      const { me } = cache.readQuery({ query: QUERY_ME });
+      cache.writeQuery({
+        query: QUERY_ME,
+        data: { me: { ...me, savedBooks: [...me.savedBooks, saveBook] } },
+      });
+    } 
+  })
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
@@ -44,21 +46,22 @@ const SearchBooks = () => {
       const response = await searchGoogleBooks(searchInput);
 
       if (!response.ok) {
-        throw new Error("something went wrong!");
+        throw new Error('something went wrong!');
       }
 
       const { items } = await response.json();
-
+      // console.log(items)
       const bookData = items.map((book) => ({
         bookId: book.id,
-        authors: book.volumeInfo.authors || ["No author to display"],
+        authors: book.volumeInfo.authors || ['No author to display'],
         title: book.volumeInfo.title,
         description: book.volumeInfo.description,
-        image: book.volumeInfo.imageLinks?.thumbnail || "",
+        image: book.volumeInfo.imageLinks?.thumbnail || '',
+        link: book.volumeInfo.previewLink
       }));
-
+      // console.log(bookData);
       setSearchedBooks(bookData);
-      setSearchInput("");
+      setSearchInput('');
     } catch (err) {
       console.error(err);
     }
@@ -71,18 +74,19 @@ const SearchBooks = () => {
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-
+    // console.log(token)
     if (!token) {
       return false;
     }
-
+     
     try {
-      const response = await saveBook({ variables: bookToSave, token });
+      await saveBook({
+        variables: { input: bookToSave }});
 
-      if (!response) {
-        throw new Error("something went wrong!");
+      if (error) {
+        throw new Error('something went wrong!');
       }
-
+      // console.log(bookToSave.bookId)
       // if book successfully saves to user's account, save book id to state
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
@@ -117,8 +121,8 @@ const SearchBooks = () => {
           </Form>
           <br />
           <h3>
-            Need Something a little stronger? Try:</h3>
-          {/* insert random coctail api */}
+            Search for a book and get a cure!</h3>
+          {/* insert random cocktail api */}
         </Jumbotron>
       </Container>
       <br />
@@ -131,7 +135,7 @@ const SearchBooks = () => {
         <CardColumns>
           {searchedBooks.map((book) => {
             return (
-              <Card key={book.bookId} border="dark">
+              <Card className="book-card" key={book.bookId}>
                 {book.image ? (
                   <Card.Img
                     src={book.image}
@@ -155,7 +159,7 @@ const SearchBooks = () => {
                         (savedBookId) => savedBookId === book.bookId
                       )
                         ? "Saved"
-                        : "Save this Book"}
+                        : "Save"}
                     </Button>
                   )}
                 </Card.Body>

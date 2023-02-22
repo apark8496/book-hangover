@@ -2,7 +2,7 @@
 
 :root {
   --sage: #a3ac9b;
-  --dark-sage: #727E66;
+  --dark-sage: #43473e  ;
   --manatee: #8e9aafff;
   --languid-lavender: #cbc0d3ff;
   --pale-pink: #efd3d7ff;
@@ -10,17 +10,20 @@
   --lavender-web: #dee2ffff;
 }
 
+* {
+  font-family: 'Offside', cursive;
+}
+
 body {
-  /* background-image: url(https://www.passporttoeden.com/wp-content/uploads/2022/09/DarkAcademiaLibraries_Featured-1-of-1.jpg); */
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #cccccc;
+  background-color: #303030;
 }
 
 /* navbar */
-.logo {
-  color: var(--sage) !important;
-  font-size: 2.5rem;
+.brand {
+  color: var(--dark-sage) !important;
+  font-size: 2rem;
   text-decoration: none;
   text-align: center;
 }
@@ -39,7 +42,6 @@ body {
 
 .nav-link {
   color: white !important;
-  background-color: rgba(114, 126, 102, 0.5);
   padding: 5px 0 2px;
   margin: auto;
   text-decoration: none;
@@ -54,81 +56,31 @@ body {
 
 /* book search page */
 .book-search {
-  background-color: rgba(163, 172, 155, 0.5);
+  background-image: url(https://www.passporttoeden.com/wp-content/uploads/2022/09/DarkAcademiaLibraries_Featured-1-of-1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
   border-radius: 15px;
   margin: auto;
   text-align: center;
+  color: white;
 }
 
 input[type="text"] {
+  justify-content: center;
   border-radius: 10px;
+  margin: auto;
+  display: block;
 }
 
 input[type="text"]:focus {
   background-color: var(--lavender-web);
 }
 
-/* Book Search Submit Button */
-.submit-btn {
-  text-decoration: none;
-  position: absolute;
-  border: none;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: inherit;
-  color: #fff;
-  width: 9em;
-  height: 3em;
-  line-height: 2em;
-  text-align: center;
-  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-  background-size: 300%;
-  border-radius: 10px;
-  z-index: 1;
-}
-
-.submit-btn:hover {
-  animation: ani 8s linear infinite;
-  border: none;
-}
-
-@keyframes ani {
-  0% {
-    background-position: 0%;
-  }
-
-  100% {
-    background-position: 400%;
-  }
-}
-
-.submit-btn:before {
-  content: '';
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  z-index: -1;
-  border-radius: 10px;
-  background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-  background-size: 400%;
-  transition: 1s;
-}
-
-.submit-btn:hover::before {
-  filter: blur(20px);
-}
-
-.submit-btn:active {
-  background: linear-gradient(32deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-}
-
 /* Book Card Styles */
 .book-card {
   border-radius: 10px;
   border-color: var(--dark-sage);
-  background-color: rgba(255, 254, 254, 0.5);
+  background-color: rgba(255, 254, 254, 0.5) !important;
 }
 
 .card-img {
