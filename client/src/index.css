@@ -22,15 +22,37 @@ body {
 
 /* navbar */
 .brand {
-  color: var(--dark-sage) !important;
-  font-size: 2rem;
-  text-decoration: none;
-  text-align: center;
+  color: #fff !important;
+  font-size: 1.6rem;
+  text-decoration: none;   
+  animation: pulsate 2.5s infinite alternate;     
 }
 
-.logo:hover {
-  cursor: pointer;
-  color: transparent;
+@keyframes pulsate {
+  100% {
+    /* Larger blur radius */
+    text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px #9B5DE5,
+      0 0 80px #9B5DE5,
+      0 0 90px #9B5DE5,
+      0 0 100px #9B5DE5,
+      0 0 150px #9B5DE5;
+  }
+  0% {
+    /* Smaller blur radius */
+    text-shadow:
+      0 0 2px #fff,
+      0 0 4px #fff,
+      0 0 6px #fff,
+      0 0 10px #9B5DE5,
+      0 0 45px #9B5DE5,
+      0 0 55px #9B5DE5,
+      0 0 70px #9B5DE5,
+      0 0 80px #9B5DE5;
+  }
 }
 
 .navbar {
@@ -50,8 +72,15 @@ body {
 
 .nav-link:hover {
   cursor: pointer;
-  color: var(--pale-pink) !important;
-  border-radius: 10px;
+  text-shadow:
+  0 0 2px #fff,
+  0 0 4px #fff,
+  0 0 6px #fff,
+  0 0 10px #9B5DE5,
+  0 0 45px #9B5DE5,
+  0 0 55px #9B5DE5,
+  0 0 70px #9B5DE5,
+  0 0 80px #9B5DE5;
 }
 
 /* book search page */
